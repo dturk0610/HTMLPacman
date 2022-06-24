@@ -1,6 +1,6 @@
 var gl;
-var h;
-var w;
+var w, h;
+var up = vec2( 0, 1), down = vec2( -0, -1), left = vec2( -1, -0), right = vec2( 1, 0), stop = vec2( 0, -0);
 
 function init(){
 
@@ -8,62 +8,80 @@ function init(){
     gl=WebGLUtils.setupWebGL(canvas);
     if (!gl) { alert( "WebGL is not available" );}
 
-    h = parseFloat(canvas.height);
     w = parseFloat(canvas.width);
+    h = parseFloat(canvas.height);
+    
+    setupGL();
+    setupCharacter();
+    setupInput();
 
+    window.requestAnimationFrame(update);
 
+}
+var characterBufferID;
+var fruitBufferID, redGhostBufferID, pinkGhostBufferID, blueGhostBufferID, orangeGhostBufferID;
+var wallsBufferID;
 
-    render();
+var characterShader;
+
+var posAttributeLocation
+
+function setupGL(){
+
+    gl.viewport(0, 0, w, h );
+    gl.clearColor( 0.0/255.0, 0.0/255.0, 0.0/255.0, 1.0 );
+    gl.clear( gl.COLOR_BUFFER_BIT );
+
+    characterBufferID = gl.createBuffer();
+    fruitBufferID = gl.createBuffer();
+    redGhostBufferID = gl.createBuffer();
+    pinkGhostBufferID = gl.createBuffer();
+    blueGhostBufferID = gl.createBuffer();
+    orangeGhostBufferID = gl.createBuffer();
+    wallsBufferID = gl.createBuffer();
+
+    characterShader = initShaders( gl, "vertex-shader", "frag-pacman" );
+    gl.useProgram( characterShader );
+    posAttributeLocation = gl.getAttribLocation( characterShader, "myPosition")
 
 }
 
-function render(){
+function setupInput(){
 
-    gl.viewport(0, 0, w, h );
-    gl.clearColor( 200.0/255.0, 0.0/255.0, 170.0/255.0, 1.0 );
+    window.addEventListener( "keydown", onKeyDown, false );
+    window.addEventListener( "keyup", onKeyUp, false );
+
+}
+
+function update(){
+
+    // console.log("Hell");
     gl.clear( gl.COLOR_BUFFER_BIT );
 
-    var point1 = vec2(0,0);
-    var point2 = vec2(0,1);
-    var point3 = vec2(1,0);
+    updateCharacter();
+    renderCharacter();
 
-    var point4 = vec2(0,0);
-    var point5 = vec2(0,-1);
-    var point6 = vec2(-1,-1);
-    var point7 = vec2(-1,0);
-
-    var trinangleArr = [];
-    trinangleArr.push(point1);
-    trinangleArr.push(point2);     
-    trinangleArr.push(point3);
-    //pushing square points into array
-    trinangleArr.push(point4);
-    trinangleArr.push(point5);
-    trinangleArr.push(point6);
-    trinangleArr.push(point7);
-
-    var triBufferID = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, triBufferID);
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(trinangleArr), gl.STATIC_DRAW );
-
-    var myShaderProgram = initShaders( gl, "vertex-shader", "frag-green" );
-    gl.useProgram(myShaderProgram);
-
-    var myPos = gl.getAttribLocation( myShaderProgram, "myPosition");
-    gl.vertexAttribPointer( myPos, 2, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( myPos );
-
-    gl.drawArrays( gl.TRIANGLES, 0, 3 );
-    //square
-    gl.drawArrays( gl.TRIANGLE_FAN, 3, 4 );
-
-    for (var i = 0; i < 128; i++){
-        for (var j = 0; j < 128; j++){
-            drawCirc(4, vec2(16*i + 8, 16*j + 8));
-        }
-    }
+    window.requestAnimationFrame(update);
 
 }   
+
+function onKeyDown( event ){
+
+    var keyCode = event.keyCode;
+    switch (keyCode){
+        case 87: pacmanMoveDir = up;    break; //w
+        case 65: pacmanMoveDir = left;  break; //a
+        case 83: pacmanMoveDir = down;  break; //s
+        case 68: pacmanMoveDir = right; break; //d
+    }
+
+}  
+
+function onKeyUp( event ){
+
+    var keyCode = event.keyCode;
+
+}
 
 function convertCanvasPosToView(x, y){
     return vec2((x/(w/2)) - 1, (y/(h/2)) - 1);

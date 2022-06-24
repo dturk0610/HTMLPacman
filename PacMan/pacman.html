@@ -5,6 +5,7 @@
         <script type="text/javascript" src="../Common/initShaders.js"></script>
         <script type="text/javascript" src="../Common/MV.js"></script>
         <script type="text/javascript" src="pacman.js"></script>
+        <script type="text/javascript" src="character.js"></script>
 
         <script id="vertex-shader" type="x-shader/x-vertex">
             attribute vec4 myPosition;
@@ -26,10 +27,16 @@
                 gl_FragColor = vec4( 0, 0, 1.0, 1.0 );
             }
         </script>
-    
+
+        <script id="frag-pacman" type="x-shader/x-fragment">
+            void main(){
+                gl_FragColor = vec4( 1.0, 1.0, 0.0, 1.0 );
+            }
+        </script>
+
     </head>
 
     <body onload="init()">
-<canvas id="gl-canvas" width="2048" height="2048"></canvas>
+<canvas id="gl-canvas" width="1024" height="976"></canvas>
     </body>
 </html>
