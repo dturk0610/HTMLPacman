@@ -1,4 +1,4 @@
-height:37,width:28
+height:36,width:28
 %---------------------------
 b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b
 b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b
@@ -11,7 +11,6 @@ w,p,w,w,w,w,p,w,w,w,w,w,p,w,w,p,w,w,w,w,w,p,w,w,w,w,p,w
 w,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,p,w
 w,p,w,w,w,w,p,w,w,p,w,w,w,w,w,w,w,w,p,w,w,p,w,w,w,w,p,w
 w,p,w,w,w,w,p,w,w,p,w,w,w,w,w,w,w,w,p,w,w,p,w,w,w,w,p,w
-w,p,p,p,p,p,p,w,w,p,p,p,p,w,w,p,p,p,p,w,w,p,p,p,p,p,p,w
 w,p,p,p,p,p,p,w,w,p,p,p,p,w,w,p,p,p,p,w,w,p,p,p,p,p,p,w
 w,w,w,w,w,w,p,w,w,w,w,w,h,w,w,h,w,w,w,w,w,p,w,w,w,w,w,w
 b,b,b,b,b,w,p,w,w,w,w,w,h,w,w,h,w,w,w,w,w,p,w,b,b,b,b,b

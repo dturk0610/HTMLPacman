@@ -13,18 +13,21 @@ function init(){
     
     setupGL();
     setupCharacter();
+    setupMap();
     setupInput();
 
     window.requestAnimationFrame(update);
 
 }
 var characterBufferID;
-var fruitBufferID, redGhostBufferID, pinkGhostBufferID, blueGhostBufferID, orangeGhostBufferID;
+var pelletBufferID, fruitBufferID;
+var redGhostBufferID, pinkGhostBufferID, blueGhostBufferID, orangeGhostBufferID;
 var wallsBufferID;
 
 var characterShader;
+var pelletShader;
 
-var posAttributeLocation
+var charPosAttributeLocation, pelletPosAttribLoc;
 
 function setupGL(){
 
@@ -33,6 +36,7 @@ function setupGL(){
     gl.clear( gl.COLOR_BUFFER_BIT );
 
     characterBufferID = gl.createBuffer();
+    pelletBufferID = gl.createBuffer();
     fruitBufferID = gl.createBuffer();
     redGhostBufferID = gl.createBuffer();
     pinkGhostBufferID = gl.createBuffer();
@@ -41,8 +45,13 @@ function setupGL(){
     wallsBufferID = gl.createBuffer();
 
     characterShader = initShaders( gl, "vertex-shader", "frag-pacman" );
+    pelletShader = initShaders( gl, "vertex-shader", "frag-pellet" );
+
     gl.useProgram( characterShader );
-    posAttributeLocation = gl.getAttribLocation( characterShader, "myPosition")
+    charPosAttributeLocation = gl.getAttribLocation( characterShader, "myPosition");
+
+    gl.useProgram( pelletShader );
+    pelletPosAttribLoc = gl.getAttribLocation( pelletShader, "myPosition");
 
 }
 
@@ -61,14 +70,17 @@ function update(){
     updateCharacter();
     renderCharacter();
 
-    window.requestAnimationFrame(update);
+    updatePellets();
+    renderPellets();
+
+    window.requestAnimationFrame( update );
 
 }   
 
 function onKeyDown( event ){
 
     var keyCode = event.keyCode;
-    switch (keyCode){
+    switch ( keyCode ){
         case 87: pacmanMoveDir = up;    break; //w
         case 65: pacmanMoveDir = left;  break; //a
         case 83: pacmanMoveDir = down;  break; //s

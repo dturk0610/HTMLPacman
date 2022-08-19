@@ -6,6 +6,8 @@
         <script type="text/javascript" src="../Common/MV.js"></script>
         <script type="text/javascript" src="pacman.js"></script>
         <script type="text/javascript" src="character.js"></script>
+        <script type="text/javascript" src="pellet.js"></script>
+        <script type="text/javascript" src="level.js"></script>
 
         <script id="vertex-shader" type="x-shader/x-vertex">
             attribute vec4 myPosition;
@@ -34,10 +36,16 @@
             }
         </script>
 
+        <script id="frag-pellet" type="x-shader/x-fragment">
+            void main(){
+                gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 );
+            }
+        </script>
+
     </head>
 
     <body onload="init()">
-        <!-- aspect ratio 8:7 -->
-<canvas id="gl-canvas" width="1024" height="976"></canvas> 
+        <!-- aspect ratio 8:7 width="1024" height="976" -->
+<canvas id="gl-canvas" width="560" height="720"></canvas> 
     </body>
 </html>
