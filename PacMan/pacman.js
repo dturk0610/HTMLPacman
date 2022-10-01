@@ -13,26 +13,31 @@ function init(){
     
     setupGL();
     setupCharacter();
+    setupMap();
     setupInput();
 
     window.requestAnimationFrame(update);
 
 }
 var characterBufferID;
-var fruitBufferID, redGhostBufferID, pinkGhostBufferID, blueGhostBufferID, orangeGhostBufferID;
+var pelletBufferID, fruitBufferID;
+var redGhostBufferID, pinkGhostBufferID, blueGhostBufferID, orangeGhostBufferID;
 var wallsBufferID;
 
 var characterShader;
+var pelletShader;
+var wallShader;
 
-var posAttributeLocation
+var charPosAttributeLocation, pelletPosAttribLoc, wallPosAttribloc;
 
 function setupGL(){
 
     gl.viewport(0, 0, w, h );
-    gl.clearColor( 0.0/255.0, 0.0/255.0, 0.0/255.0, 1.0 );
-    gl.clear( gl.COLOR_BUFFER_BIT );
+    gl.clearColor(0.0/255.0, 0.0/255.0, 0.0/255.0, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
     characterBufferID = gl.createBuffer();
+    pelletBufferID = gl.createBuffer();
     fruitBufferID = gl.createBuffer();
     redGhostBufferID = gl.createBuffer();
     pinkGhostBufferID = gl.createBuffer();
@@ -40,32 +45,45 @@ function setupGL(){
     orangeGhostBufferID = gl.createBuffer();
     wallsBufferID = gl.createBuffer();
 
-    characterShader = initShaders( gl, "vertex-shader", "frag-pacman" );
-    gl.useProgram( characterShader );
-    posAttributeLocation = gl.getAttribLocation( characterShader, "myPosition")
+    characterShader = initShaders(gl, "vertex-shader", "frag-pacman");
+    pelletShader = initShaders(gl, "vertex-shader", "frag-pellet");
+    wallShader = initShaders(gl, "vertex-shader", "frag-wall");
 
+    gl.useProgram(characterShader);
+    charPosAttributeLocation = gl.getAttribLocation(characterShader, "myPosition");
+
+    gl.useProgram(pelletShader);
+    pelletPosAttribLoc = gl.getAttribLocation(pelletShader, "myPosition");
+    
+    gl.useProgram(wallShader);
+    wallPosAttribLoc = gl.getAttribLocation(wallShader, "myPosition");
 }
 
 function setupInput(){
 
-    window.addEventListener( "keydown", onKeyDown, false );
-    window.addEventListener( "keyup", onKeyUp, false );
+    window.addEventListener("keydown", onKeyDown, false);
+    window.addEventListener("keyup", onKeyUp, false);
 
 }
 
 function update(){
 
     // console.log("Hell");
-    gl.clear( gl.COLOR_BUFFER_BIT );
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
     updateCharacter();
     renderCharacter();
+
+    updatePellets();
+    renderPellets();
+    
+    renderWalls();
 
     window.requestAnimationFrame(update);
 
 }   
 
-function onKeyDown( event ){
+function onKeyDown(event){
 
     var keyCode = event.keyCode;
     switch (keyCode){
@@ -77,7 +95,7 @@ function onKeyDown( event ){
 
 }  
 
-function onKeyUp( event ){
+function onKeyUp(event){
 
     var keyCode = event.keyCode;
 

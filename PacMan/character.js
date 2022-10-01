@@ -1,10 +1,10 @@
 var pacmanPos;
-var pacRadius = 13;
+var pacRadius = 6;
 var pacmanVertex = [];
 var pacmanOpenMouthVertex = [];
 var pacmanMoveDir = vec2(0, 0);
-var pacmanSpeed = 1;
-var countDownOrig = 20;
+var pacmanSpeed = .6;
+var countDownOrig = 25;
 var mouthCountDown = countDownOrig;
 var mouthOpen = false;
 
@@ -55,8 +55,8 @@ function renderCharacter() {
 
     gl.bindBuffer(gl.ARRAY_BUFFER, characterBufferID);
     gl.useProgram(characterShader);
-    gl.enableVertexAttribArray(posAttributeLocation);
-    gl.vertexAttribPointer(posAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(charPosAttributeLocation);
+    gl.vertexAttribPointer(charPosAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
     var pointsToRender = [];
 
