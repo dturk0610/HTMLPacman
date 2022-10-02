@@ -86,7 +86,7 @@ function update(){
 function onKeyDown(event){
 
     var keyCode = event.keyCode;
-    switch (keyCode){
+    switch ( keyCode ){
         case 87: pacmanMoveDir = up;    break; //w
         case 65: pacmanMoveDir = left;  break; //a
         case 83: pacmanMoveDir = down;  break; //s
