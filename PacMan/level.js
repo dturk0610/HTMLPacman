@@ -43,16 +43,24 @@ function setupMap(){
     var wallsToLoad = [];
 
     const lines = level1.split("\n");
+    lines.shift();
+
+    var mapW = 0, mapH = lines.length;
+    var xyWalls = Array(mapH);
 
     for (var i = 0; i < lines.length; i++){
         var currLine = lines[i];
         var tokens = currLine.split(",");
-        for ( var j = 0; j < tokens.length; j++ ){
+
+        mapW = tokens.length;
+        xyWalls[i] = Array(mapW).fill(false);
+        
+        for (var j = 0; j < tokens.length; j++){
             switch (tokens[j]){
                 case "p":
                     pelletsToLoad.push(vec2(j + .5, lines.length - i)); break;
                 case "w":
-                    wallsToLoad.push(vec2(j + .5, lines.length - i)); break;
+                    wallsToLoad.push(vec2(j + .5, lines.length - i)); xyWalls[i][j] = true; break;
                 case "s":
                     pacmanPos = vec2((j + .5)*20, (lines.length - i)*20); break;
             }
@@ -62,5 +70,7 @@ function setupMap(){
     setupPellets(pelletsToLoad, pelletRad);
 
     setupWalls(wallsToLoad, wallsWidth);
+
+    setupRailways( mapW, mapH, xyWalls );
 
 }

@@ -19,8 +19,7 @@ function setupWalls(wallsPosToLoad, wallsWidth){
     }
 
     wallData = flattenWallsArr();
-    // console.log(`${wallData[4]}, ${wallData[5]} x ${wallData[6]}, ${wallData[7]}`)
-    // console.log(`${wallData[28]}, ${wallData[29]} x ${wallData[30]}, ${wallData[31]}`)
+    
     var dupeInds = new Set();
     for (var i = 0; i < wallData.length/4; i++){
         var isADupe = false;

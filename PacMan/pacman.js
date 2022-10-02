@@ -68,16 +68,17 @@ function setupInput(){
 
 function update(){
 
-    // console.log("Hell");
     gl.clear(gl.COLOR_BUFFER_BIT);
-
-    updateCharacter();
-    renderCharacter();
 
     updatePellets();
     renderPellets();
     
     renderWalls();
+
+    updateRailways();
+    
+    updateCharacter();
+    renderCharacter();
 
     window.requestAnimationFrame(update);
 
@@ -87,10 +88,10 @@ function onKeyDown(event){
 
     var keyCode = event.keyCode;
     switch ( keyCode ){
-        case 87: pacmanMoveDir = up;    break; //w
-        case 65: pacmanMoveDir = left;  break; //a
-        case 83: pacmanMoveDir = down;  break; //s
-        case 68: pacmanMoveDir = right; break; //d
+        case 87: pacmanMoveDir = up;    pacmanSpeed = origPacSpeed; break; //w
+        case 65: pacmanMoveDir = left;  pacmanSpeed = origPacSpeed; break; //a
+        case 83: pacmanMoveDir = down;  pacmanSpeed = origPacSpeed; break; //s
+        case 68: pacmanMoveDir = right; pacmanSpeed = origPacSpeed; break; //d
     }
 
 }  

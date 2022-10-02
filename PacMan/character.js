@@ -3,7 +3,7 @@ var pacRadius = 6;
 var pacmanVertex = [];
 var pacmanOpenMouthVertex = [];
 var pacmanMoveDir = vec2(0, 0);
-var pacmanSpeed = .6;
+var pacmanSpeed = .6, origPacSpeed = .6;
 var countDownOrig = 25;
 var mouthCountDown = countDownOrig;
 var mouthOpen = false;
