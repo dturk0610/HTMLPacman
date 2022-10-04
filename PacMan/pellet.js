@@ -1,10 +1,13 @@
 
 var GamePellets = [];
 
-function setupPellets(pelletsToLoad, pelletRadius){
+function setupPellets(pelletsToLoad, pelletRadius, superPelletRad, isSuperPellet){
   
     for (var i = 0; i < pelletsToLoad.length; i++){
-        var newPellet = new Pellet(pelletsToLoad[i][0]*20, pelletsToLoad[i][1]*20, pelletRadius);
+        var radius = pelletRadius;
+        if (isSuperPellet[i])
+            radius = superPelletRad;
+        var newPellet = new Pellet(pelletsToLoad[i][0]*20, pelletsToLoad[i][1]*20, radius, isSuperPellet[i]);
         GamePellets.push(newPellet);
     }
 }
@@ -53,10 +56,11 @@ function renderPellets(){
 
 class Pellet{
 
-    constructor(x = 0, y = 0, r = 1){
+    constructor(x = 0, y = 0, r = 1, isS = false){
         this.x = x;
         this.y = y;
         this.r = r;
+        this.isSuper = isS;
         var div = 12;
         var stepAmount = 2*Math.PI/div;
         this.verts =[];

@@ -37,8 +37,10 @@ const level1 = "" +
 "\nb,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b";
 
 function setupMap(){
-    var pelletRad = 3;
+    var pelletRad = 2.25;
+    var superPelletRad = 4;
     var pelletsToLoad = [];
+    var isSuperPellet = [];
     var wallsWidth = 20;
     var wallsToLoad = [];
 
@@ -64,15 +66,22 @@ function setupMap(){
                 case "s":
                     pacmanPos = vec2((j + .5)*20, (lines.length - i)*20); break;
                 case "o":
+                    pelletsToLoad.push(vec2(j + .5, lines.length - i));
+                    isSuperPellet.push(true)
+                    xyRails[i][j] = vec2((j + .5)*20, (lines.length - i)*20);
+                    break;
                 case "p":
                     pelletsToLoad.push(vec2(j + .5, lines.length - i));
+                    isSuperPellet.push(false)
+                    xyRails[i][j] = vec2((j + .5)*20, (lines.length - i)*20);
+                    break;
                 case "h":
                     xyRails[i][j] = vec2((j + .5)*20, (lines.length - i)*20); break;
             }
         }
     }
 
-    setupPellets(pelletsToLoad, pelletRad);
+    setupPellets(pelletsToLoad, pelletRad, superPelletRad, isSuperPellet);
 
     setupWalls(wallsToLoad, wallsWidth);
 
