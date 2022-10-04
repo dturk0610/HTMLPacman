@@ -1,6 +1,6 @@
 var gl;
 var w, h;
-var up = vec2( 0, 1), down = vec2( -0, -1), left = vec2( -1, -0), right = vec2( 1, 0), stop = vec2( 0, -0);
+const up = vec2( 0, 1), down = vec2( -0, -1), left = vec2( -1, -0), right = vec2( 1, 0), stop = vec2( 0, -0);
 
 function init(){
 
@@ -88,10 +88,10 @@ function onKeyDown(event){
 
     var keyCode = event.keyCode;
     switch ( keyCode ){
-        case 87: pacmanMoveDir = up;    pacmanSpeed = origPacSpeed; break; //w
-        case 65: pacmanMoveDir = left;  pacmanSpeed = origPacSpeed; break; //a
-        case 83: pacmanMoveDir = down;  pacmanSpeed = origPacSpeed; break; //s
-        case 68: pacmanMoveDir = right; pacmanSpeed = origPacSpeed; break; //d
+        case 87: pacmanNewMoveDir = up;    pacmanSpeed = origPacSpeed; break; //w
+        case 65: pacmanNewMoveDir = left;  pacmanSpeed = origPacSpeed; break; //a
+        case 83: pacmanNewMoveDir = down;  pacmanSpeed = origPacSpeed; break; //s
+        case 68: pacmanNewMoveDir = right; pacmanSpeed = origPacSpeed; break; //d
     }
 
 }  

@@ -47,6 +47,7 @@ function setupMap(){
 
     var mapW = 0, mapH = lines.length;
     var xyWalls = Array(mapH);
+    var xyRails = Array(mapH);
 
     for (var i = 0; i < lines.length; i++){
         var currLine = lines[i];
@@ -54,15 +55,19 @@ function setupMap(){
 
         mapW = tokens.length;
         xyWalls[i] = Array(mapW).fill(false);
+        xyRails[i] = Array(mapW).fill(vec2(0,0));
         
         for (var j = 0; j < tokens.length; j++){
             switch (tokens[j]){
-                case "p":
-                    pelletsToLoad.push(vec2(j + .5, lines.length - i)); break;
                 case "w":
                     wallsToLoad.push(vec2(j + .5, lines.length - i)); xyWalls[i][j] = true; break;
                 case "s":
                     pacmanPos = vec2((j + .5)*20, (lines.length - i)*20); break;
+                case "o":
+                case "p":
+                    pelletsToLoad.push(vec2(j + .5, lines.length - i));
+                case "h":
+                    xyRails[i][j] = vec2((j + .5)*20, (lines.length - i)*20); break;
             }
         }
     }
@@ -71,6 +76,6 @@ function setupMap(){
 
     setupWalls(wallsToLoad, wallsWidth);
 
-    setupRailways( mapW, mapH, xyWalls );
+    setupRailways(mapW, mapH, xyWalls, xyRails);
 
 }
